@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AHU 888 | COMMAND CENTER</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono&family=Orbitron:wght@400;900&family=Tajawal:wght@300;700&display=swap');
+
+    :root {
+      --glow-red: #ff0000;
+      --panel-dark: rgba(10, 10, 12, 0.9);
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #050505;
+      color: #888;
+      overflow-x: hidden;
+    }
+
+    .mono-text { font-family: 'Space Mono', monospace; }
+    .heading-font { font-family: 'Orbitron', sans-serif; }
+
+    /* تأثير خلفية المصفوفة أو الدوائر */
+    .bg-cyber {
+      background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* تأثير النبض الأحمر للحواف */
+    .border-glow {
+      border: 1px solid rgba(255, 0, 0, 0.1);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .border-glow:hover {
+      border-color: rgba(255, 0, 0, 0.3);
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+    }
+
+    /* شريط المسح المتحرك */
+    .scanner-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--glow-red), transparent);
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: scan 3s linear infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+
+    .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #050505; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+  </style>
+</head>
+<body class="bg-cyber min-h-screen p-2 md:p-6">
+
+  <div class="max-w-7xl mx-auto space-y-6">
+    
+    <header class="relative p-8 border-glow bg-black/40 overflow-hidden flex flex-col items-center justify-center text-center rounded-sm">
+      <div class="scanner-line"></div>
+      
+      <div class="relative z-10 mb-4">
+        <div class="w-24 h-24 rounded-full border-2 border-red-900/50 p-1 bg-black shadow-[0_0_40px_rgba(255,0,0,0.2)]">
+          <img src="logo.png" class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-700">
+        </div>
+      </div>
+
+      <h1 class="heading-font text-5xl md:text-7xl font-black text-white tracking-[0.2em] mb-2 opacity-90">
+        AHU <span class="text-red-600">888</span>
+      </h1>
+      <div class="flex items-center gap-4 text-[10px] mono-text uppercase tracking-widest text-gray-500">
+        <span>Unit: Cyber_Intelligence</span>
+        <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span>
+        <span>Status: System_Live</span>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="border-glow p-4 bg-black/60 backdrop-blur-sm text-center">
+        <div class="text-[9px] uppercase mono-text text-gray-600">Total_Records</div>
+        <div id="totalCounter" class="text-2xl font-bold text-white heading-font mt-1">0000</div>
+      </div>
+      <div class="border-glow p-4 bg-black/60 backdrop-blur-sm text-center">
+        <div class="text-[9px] uppercase mono-text text-gray-600">Active_Nodes</div>
+        <div class="text-2xl font-bold text-red-700 heading-font mt-1">12</div>
+      </div>
+      <div class="border-glow p-4 bg-black/60 backdrop-blur-sm text-center">
+        <div class="text-[9px] uppercase mono-text text-gray-600">Requests</div>
+        <div id="queryCounter" class="text-2xl font-bold text-white heading-font mt-1">0</div>
+      </div>
+      <div class="border-glow p-4 bg-black/60 backdrop-blur-sm text-center">
+        <div class="text-[9px] uppercase mono-text text-gray-600">Uptime</div>
+        <div class="text-2xl font-bold text-white heading-font mt-1">99.9%</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      
+      <div class="lg:col-span-1 space-y-4">
+        <div class="border-glow p-6 bg-black/40">
+          <label class="text-[10px] mono-text uppercase block mb-4 text-red-900 font-bold">Query_Intercept_Module</label>
+          <input id="searchInput" type="text" placeholder="TYPE_ID_OR_NAME..." 
+                 class="w-full bg-black border-b-2 border-gray-900 p-3 text-white mono-text focus:outline-none focus:border-red-600 transition-all placeholder-gray-800">
+          <p class="text-[9px] text-gray-700 mt-4 leading-relaxed uppercase mono-text italic">
+            [Warning] All queries are logged and encrypted. Unauthorised access will be flagged.
+          </p>
+        </div>
+
+        <div class="border-glow p-4 bg-red-950/5 text-center">
+          <span class="text-[11px] text-red-700 font-bold animate-pulse">للاسف تم الوصول الى المعلومات</span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3 border-glow bg-black/40 overflow-hidden">
+        <div class="max-h-[500px] overflow-y-auto custom-scrollbar">
+          <table class="w-full text-right">
+            <thead class="sticky top-0 bg-[#0a0a0a] z-10 shadow-xl">
+              <tr class="text-[10px] mono-text text-gray-600 uppercase border-b border-gray-800">
+                <th class="p-4">UUID</th>
+                <th class="p-4">Identity_Name</th>
+                <th class="p-4 text-left">Security_Level</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-white/5">
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dataModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl hidden">
+    <div class="w-full max-w-lg border-2 border-red-900/30 bg-[#050505] relative p-8 shadow-[0_0_100px_rgba(255,0,0,0.15)]">
+      <div id="modalContent"></div>
+      <button onclick="closeModal()" class="mt-8 w-full border border-gray-800 py-3 text-[10px] mono-text uppercase text-gray-600 hover:text-white hover:border-white transition-all">
+        Destroy_Session_0x11
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let allData = [];
+    let queryCount = 0;
+
+    // Load Data
+    fetch("data.json")
+      .then(res => res.json())
+      .then(data => {
+        allData = data;
+        render(allData);
+        document.getElementById('totalCounter').innerText = data.length.toString().padStart(4, '0');
+      });
+
+    function render(list) {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = list.map(item => `
+        <tr onclick="showModal(${JSON.stringify(item).replace(/"/g, '&quot;')})" 
+            class="hover:bg-red-900/10 cursor-pointer transition-all group">
+          <td class="p-5 text-xs mono-text text-gray-500">0x${item.id}</td>
+          <td class="p-5 text-gray-300 font-bold group-hover:text-red-500">${item.name}</td>
+          <td class="p-5 text-left text-[9px] mono-text text-gray-700 italic uppercase">Top_Secret_Encrypted</td>
+        </tr>
+      `).join('');
+    }
+
+    function showModal(user) {
+      document.getElementById('modalContent').innerHTML = `
+        <div class="text-center space-y-6">
+          <div class="text-red-600 heading-font text-[10px] tracking-widest animate-bounce uppercase">Access_Intercepted</div>
+          <h2 class="text-5xl font-black text-white italic tracking-tighter uppercase heading-font">${user.name}</h2>
+          <div class="p-6 bg-red-950/10 border border-red-900/20 text-right">
+             <div class="flex justify-between border-b border-gray-900 py-2"><span class="text-[9px] mono-text">ID:</span><span class="text-gray-200">#${user.id}</span></div>
+             <div class="flex justify-between border-b border-gray-900 py-2"><span class="text-[9px] mono-text">MAIL:</span><span class="text-gray-400 font-bold">${user.email}</span></div>
+             <div class="mt-4 text-center">
+                <p class="text-red-700 font-bold text-sm">للاسف تم الوصول الى المعلومات</p>
+             </div>
+          </div>
+        </div>
+      `;
+      document.getElementById('dataModal').classList.remove('hidden');
+    }
+
+    function closeModal() { document.getElementById('dataModal').classList.add('hidden'); }
+
+    // Search Logic
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const v = e.target.value.toLowerCase();
+      const filtered = allData.filter(i => i.name.toLowerCase().includes(v) || i.id.toString().includes(v));
+      render(filtered);
+      queryCount++;
+      document.getElementById('queryCounter').innerText = queryCount;
+    });
+  </script>
+</body>
+</html>
